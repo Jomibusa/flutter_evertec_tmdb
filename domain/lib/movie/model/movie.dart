@@ -21,7 +21,7 @@ class Movie {
   final String originalTitle;
   final String overview;
   final String posterPath;
-  final String releaseDate;
+  final DateTime releaseDate;
   final String title;
   double voteAverage;
   final String originalLanguage;
@@ -32,7 +32,6 @@ class Movie {
     if (originalTitle.isEmpty) throw EmptyException();
     if (overview.isEmpty) throw EmptyException();
     if (posterPath.isEmpty) throw EmptyException();
-    if (releaseDate.isEmpty) throw EmptyException();
     if (originalLanguage.isEmpty) throw EmptyException();
   }
 
@@ -42,7 +41,7 @@ class Movie {
     String? originalTitle,
     String? overview,
     String? posterPath,
-    String? releaseDate,
+    DateTime? releaseDate,
     String? title,
     double? voteAverage,
     String? originalLanguage,

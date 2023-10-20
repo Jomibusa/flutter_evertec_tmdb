@@ -12,7 +12,7 @@ void main() {
     overview:
         'From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.',
     posterPath: '/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg',
-    releaseDate: '2016-08-03',
+    releaseDate: DateTime.now(),
     title: 'Suicide Squad',
     voteAverage: 4.5,
     originalLanguage: 'en',
@@ -42,16 +42,6 @@ void main() {
       //Assert
       expect(
         () => movie.copyWith(title: ''),
-        throwsA(isInstanceOf<EmptyException>()),
-      );
-    });
-
-    test('movie release date empty throw empty exception', () {
-      //Arrange
-      //Act
-      //Assert
-      expect(
-        () => movie.copyWith(releaseDate: ''),
         throwsA(isInstanceOf<EmptyException>()),
       );
     });
