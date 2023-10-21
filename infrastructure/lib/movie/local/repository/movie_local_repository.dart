@@ -1,5 +1,4 @@
-import 'package:domain/movie/model/movie.dart';
-import 'package:domain/movie/model/tracking.dart';
+import 'package:domain/domain.dart';
 
 abstract class MovieLocalRepository {
   Future<List<Movie>> getMovieList();

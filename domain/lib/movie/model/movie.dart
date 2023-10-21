@@ -30,7 +30,7 @@ class Movie {
   void _validateEmptyFields() {
     if (title.isEmpty) throw EmptyException();
     if (originalTitle.isEmpty) throw EmptyException();
-    if (overview.isEmpty) throw EmptyException();
+    //if (overview.isEmpty) throw EmptyException();
     if (posterPath.isEmpty) throw EmptyException();
     if (originalLanguage.isEmpty) throw EmptyException();
   }
