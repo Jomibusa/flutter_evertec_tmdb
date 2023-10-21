@@ -3,14 +3,18 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i2;
 
-import 'package:http/http.dart' as _i6;
+import 'package:http/http.dart' as _i9;
+import 'package:infrastructure/movie/local/dao/movie_dao.dart' as _i6;
+import 'package:infrastructure/movie/local/dao/tracking_dao.dart' as _i7;
+import 'package:infrastructure/movie/local/repository/movie_drift_repository.dart'
+    as _i5;
 import 'package:infrastructure/movie/remote/config_network.dart' as _i3;
 import 'package:infrastructure/movie/remote/implementation/http_client.dart'
     as _i4;
 import 'package:infrastructure/movie/remote/implementation/up_coming_client.dart'
-    as _i5;
+    as _i8;
 import 'package:infrastructure/movie/remote/repository/movie_api_repository.dart'
-    as _i7;
+    as _i10;
 import 'package:injectable/injectable.dart' as _i1;
 
 const String _prod = 'prod';
@@ -29,11 +33,15 @@ class InfrastructurePackageModule extends _i1.MicroPackageModule {
         _dev,
       },
     );
-    gh.factory<_i5.UpComingClient>(() => _i5.UpComingClient(
-          configNetwork: gh<_i3.ConfigNetwork>(),
-          client: gh<_i6.Client>(),
+    gh.factory<_i5.MovieDriftRepository>(() => _i5.MovieDriftRepository(
+          gh<_i6.MovieDao>(),
+          gh<_i7.TrackingDao>(),
         ));
-    gh.factory<_i7.MovieApiRepository>(
-        () => _i7.MovieApiRepository(gh<_i5.UpComingClient>()));
+    gh.factory<_i8.UpComingClient>(() => _i8.UpComingClient(
+          configNetwork: gh<_i3.ConfigNetwork>(),
+          client: gh<_i9.Client>(),
+        ));
+    gh.factory<_i10.MovieApiRepository>(
+        () => _i10.MovieApiRepository(gh<_i8.UpComingClient>()));
   }
 }

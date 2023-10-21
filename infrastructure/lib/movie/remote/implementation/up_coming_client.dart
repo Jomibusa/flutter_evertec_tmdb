@@ -23,7 +23,7 @@ class UpComingClient extends MovieClient with MovieTranslatorInfraToDomain {
   @override
   Future<List<Movie>> getUpComingMovieList({int page = 1}) async {
     final url = Uri.parse(
-      '${_configNetwork.baseUrl}${_configNetwork.path}?api_key=$_apiKey&language=en-MX&page=$page',
+      '${_configNetwork.baseUrl}${_configNetwork.path}?api_key=$_apiKey&language=es-MX&page=$page',
     );
     final response = await _client.get(url);
     if (response.statusCode == StatusCode.ok.value) {
