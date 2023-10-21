@@ -5,10 +5,14 @@ class ApiKeyInvalidException implements Exception {}
 
 class NotFoundException implements Exception {}
 
-@Injectable(as: ConfigNetwork, env: [Environment.prod, Environment.dev])
+@injectable
 class HttpClient extends ConfigNetwork {
   @override
   String get baseUrl => 'http://api.themoviedb.org/3';
+  
   @override
-  String get path => '/movie/upcoming';
+  String get pathMovie => "/movie";
+  
+  @override
+  String get pathUpComing => "/movie/upcoming";
 }

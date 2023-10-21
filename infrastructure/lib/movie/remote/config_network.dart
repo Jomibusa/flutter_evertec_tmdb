@@ -1,4 +1,5 @@
 abstract class ConfigNetwork {
   String get baseUrl;
-  String get path;
+  String get pathUpComing;
+  String get pathMovie;
 }

@@ -1,10 +1,7 @@
 import 'package:domain/domain.dart';
 
 abstract class MovieLocalRepository {
-  Future<List<Movie>> getMovieList();
-  Future<void> insertMovies(List<Movie> movies);
+  Future<Movie> getMovie(int id);
+  Future<void> insertMovie(Movie movie);
   Future<int> deleteAllMovies();
-  Future<List<Tracking>> getTracking();
-  Future<int> insertTracking();
-  Future<bool> updateTracking(Tracking tracking);
 }

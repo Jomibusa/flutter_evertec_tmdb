@@ -1,6 +1,5 @@
 import 'package:domain/movie/repositories/movie_repository.dart';
 import 'package:infrastructure/movie/local/dao/movie_dao.dart';
-import 'package:infrastructure/movie/local/dao/tracking_dao.dart';
 import 'package:infrastructure/movie/local/database.dart';
 import 'package:infrastructure/movie/local/repository/movie_drift_repository.dart';
 import 'package:infrastructure/movie/remote/implementation/http_client.dart';
@@ -13,9 +12,7 @@ MovieRepository setUpApp() {
   final remoteRepository = MovieApiRepository(movieProvider);
 
   final database = AppDatabase.openConnection();
-  final movieDao = MovieDao(database);
-  final trackingDao = TrackingDao(database);
-  final localRepository = MovieDriftRepository(movieDao, trackingDao);
+  final localRepository = MovieDriftRepository(MovieDao(database));
 
   return MovieProxy(
     remoteRepository: remoteRepository,

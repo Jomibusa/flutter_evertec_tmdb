@@ -13,6 +13,11 @@ class MovieDao extends DatabaseAccessor<AppDatabase> with _$MovieDaoMixin {
     return select(movie).get();
   }
 
+  //Get movie by id
+  Future<MovieData> getMovie(int id) async {
+    return (select(movie)..where((tbl) => tbl.id.equals(id))).getSingle();
+  }
+
   //Insert new movie in db
   Future<int> insertMovie(MovieCompanion movieCompanion) async {
     return into(movie).insert(movieCompanion);

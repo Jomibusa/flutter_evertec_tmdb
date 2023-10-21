@@ -5,6 +5,7 @@ import 'package:infrastructure/movie/local/database.dart';
 mixin MovieTranslatorDomainToInfra {
   MovieCompanion parseMovieDomainToDB(Movie movie) {
     return MovieCompanion(
+      id: Value(movie.id),
       originalTitle: Value(movie.originalTitle),
       title: Value(movie.title),
       overview: Value(movie.overview),
