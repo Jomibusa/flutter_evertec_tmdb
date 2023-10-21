@@ -15,4 +15,7 @@ class HttpClient extends ConfigNetwork {
   
   @override
   String get pathUpComing => "/movie/upcoming";
+  
+  @override
+  String get pathSearch => "/search/movie";
 }

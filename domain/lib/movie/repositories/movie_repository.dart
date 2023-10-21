@@ -5,4 +5,5 @@ abstract class MovieRepository {
   Future<void> saveMovieInBD(Movie movie);
   Future<Movie> getMovieFromBD(int id);
   Future<Movie> getMovieByID(String id);
+  Future<List<Movie>> searchMovies(String query);
 }

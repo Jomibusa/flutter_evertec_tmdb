@@ -55,6 +55,16 @@ class UpComingClient extends MovieClient with MovieTranslatorInfraToDomain {
     }
   }
 
+  @override
+  Future<List<Movie>> searchMovies(String query) async {
+    if (query.isEmpty) return [];
+    final url = Uri.parse(
+      '${_configNetwork.baseUrl}${_configNetwork.pathSearch}?api_key=$_apiKey&query=$query&language=es-MX',
+    );
+    final response = await _client.get(url);
+    return _jsonToMovies(json.decode(response.body) as Map<String, dynamic>);
+  }
+
   List<Movie> _jsonToMovies(Map<String, dynamic> json) {
     final moviedbReponse = MovieDto.fromJson(json);
 

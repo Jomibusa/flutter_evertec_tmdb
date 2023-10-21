@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_evertec_tmdb/presentation/home/providers/movie_providers.dart';
+import 'package:flutter_evertec_tmdb/presentation/home/widgets/custom_appbar.dart';
 import 'package:flutter_evertec_tmdb/presentation/home/widgets/movie_masonry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,6 +31,7 @@ class MovieHomeScreenState extends ConsumerState<MovieHomeScreen> {
     }
 
     return Scaffold(
+      appBar: const CustomAppBar(),
       body: MovieMasonry(
           loadNextPage: () =>
               ref.read(upComingMoviesProvider.notifier).loadNextPage(),

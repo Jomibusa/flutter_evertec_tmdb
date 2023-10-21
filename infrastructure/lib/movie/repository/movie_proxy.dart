@@ -30,4 +30,8 @@ class MovieProxy implements MovieRepository {
   @override
   Future<Movie> getMovieFromBD(int id) async =>
       await _localRepository.getMovie(id);
+
+  @override
+  Future<List<Movie>> searchMovies(String query) async =>
+      await _remoteRepository.searchMovies(query);
 }
