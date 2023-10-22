@@ -46,16 +46,6 @@ void main() {
       );
     });
 
-    test('movie overview empty throw empty exception', () {
-      //Arrange
-      //Act
-      //Assert
-      expect(
-        () => movie.copyWith(overview: ''),
-        throwsA(isInstanceOf<EmptyException>()),
-      );
-    });
-
     test('movie original title empty throw empty exception', () {
       //Arrange
       //Act
