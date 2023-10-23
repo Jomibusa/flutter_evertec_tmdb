@@ -12,6 +12,7 @@ class Movie {
     required this.voteAverage,
     required this.originalLanguage,
     required this.adult,
+    required this.genres
   }) {
     _validateEmptyFields();
     voteAverage = voteAverage / 2;
@@ -26,11 +27,11 @@ class Movie {
   double voteAverage;
   final String originalLanguage;
   final bool adult;
+  final String genres;
 
   void _validateEmptyFields() {
     if (title.isEmpty) throw EmptyException();
     if (originalTitle.isEmpty) throw EmptyException();
-    //if (overview.isEmpty) throw EmptyException();
     if (posterPath.isEmpty) throw EmptyException();
     if (originalLanguage.isEmpty) throw EmptyException();
   }
@@ -46,6 +47,7 @@ class Movie {
     double? voteAverage,
     String? originalLanguage,
     bool? adult,
+    String? genres
   }) {
     return Movie(
       backdropPath: backdropPath ?? this.backdropPath,
@@ -58,6 +60,7 @@ class Movie {
       voteAverage: voteAverage ?? this.voteAverage,
       originalLanguage: originalLanguage ?? this.originalLanguage,
       adult: adult ?? this.adult,
+      genres: genres ?? this.genres
     );
   }
 }

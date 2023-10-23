@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:domain/movie/model/movie.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:infrastructure/movie/local/database.dart';
@@ -24,6 +22,7 @@ void main() {
       voteAverage: 4.5,
       originalLanguage: 'en',
       adult: true,
+      genres: 'Comedia, Acción'
     );
     final movieData = MovieData(
       backdropPath: '/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg',
@@ -37,6 +36,7 @@ void main() {
       voteAverage: 4.5,
       originalLanguage: 'en',
       adult: true,
+      genres: 'Comedia, Acción'
     );
 
     //Act

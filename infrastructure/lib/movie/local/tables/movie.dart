@@ -11,4 +11,5 @@ class Movie extends Table {
   RealColumn get voteAverage => real().named('vote_average')();
   TextColumn get originalLanguage => text().named('original_language')();
   BoolColumn get adult => boolean()();
+  TextColumn get genres => text().named('genres')();
 }

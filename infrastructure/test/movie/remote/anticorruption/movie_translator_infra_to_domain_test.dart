@@ -22,6 +22,7 @@ void main() {
       voteAverage: 4.5,
       originalLanguage: 'en',
       adult: true,
+      genres: 'Comedia, Accion'
     );
     final resultDto = ResultDto(
       backdropPath: '/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg',
@@ -35,6 +36,7 @@ void main() {
       voteAverage: 4.5,
       originalLanguage: 'en',
       adult: true,
+      genreIds: List.empty()
     );
 
     //Act

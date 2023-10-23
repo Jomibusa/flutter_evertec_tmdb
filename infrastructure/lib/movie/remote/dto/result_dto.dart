@@ -10,6 +10,7 @@ class ResultDto {
     required this.voteAverage,
     required this.originalLanguage,
     required this.adult,
+    required this.genreIds,
   });
 
   final String backdropPath;
@@ -22,6 +23,7 @@ class ResultDto {
   final double voteAverage;
   final String originalLanguage;
   final bool adult;
+  final List<int> genreIds;
 
   factory ResultDto.fromJson(Map<String, dynamic> json) => ResultDto(
         backdropPath: json['backdrop_path'] ?? '',
@@ -37,6 +39,7 @@ class ResultDto {
         voteAverage: double.parse(json['vote_average'].toString()),
         originalLanguage: json['original_language'] ?? '',
         adult: json['adult'] ?? false,
+        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -51,6 +54,7 @@ class ResultDto {
         'title': title,
         'vote_average': voteAverage,
         'original_language': originalLanguage,
-        'adult': adult
+        'adult': adult,
+        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
       };
 }

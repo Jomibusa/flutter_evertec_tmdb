@@ -14,6 +14,7 @@ mixin MovieTranslatorInfraToDomain {
       voteAverage: movieData.voteAverage,
       adult: movieData.adult,
       originalLanguage: movieData.originalLanguage,
+      genres: movieData.genres
     );
   }
 }

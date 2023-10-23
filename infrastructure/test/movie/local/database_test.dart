@@ -32,6 +32,7 @@ void main() {
             voteAverage: const Value(4.5),
             adult: const Value(false),
             originalLanguage: const Value('en'),
+            genres: const Value('Comedia, Acción')
           ),
         );
         //Act
@@ -55,6 +56,7 @@ void main() {
             voteAverage: const Value(4.5),
             adult: const Value(false),
             originalLanguage: const Value('en'),
+            genres: const Value('Comedia, Acción')
           ),
         );
         final movie = await movieDao?.watchMovieWithId(id!).first;
@@ -69,6 +71,7 @@ void main() {
           voteAverage: 4.5,
           originalLanguage: 'en',
           adult: true,
+          genres: 'Comedia, Acción'
         );
 
         //Act
@@ -94,6 +97,7 @@ void main() {
             voteAverage: const Value(4.5),
             adult: const Value(false),
             originalLanguage: const Value('en'),
+            genres: const Value('Comedia, Acción')
           ),
         );
 

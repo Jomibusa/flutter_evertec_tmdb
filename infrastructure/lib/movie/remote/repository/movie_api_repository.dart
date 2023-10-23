@@ -14,11 +14,6 @@ class MovieApiRepository extends MovieRemoteRepository {
   }
 
   @override
-  Future<Movie> getMovieByID(String id) async {
-    return await _apiProvider.getMovieByID(id);
-  }
-
-  @override
   Future<List<Movie>> searchMovies(String query) async {
     return await _apiProvider.searchMovies(query);
   }

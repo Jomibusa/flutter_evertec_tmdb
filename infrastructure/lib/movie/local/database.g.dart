@@ -72,6 +72,11 @@ class $MovieTable extends Movie with TableInfo<$MovieTable, MovieData> {
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('CHECK ("adult" IN (0, 1))'));
+  static const VerificationMeta _genresMeta = const VerificationMeta('genres');
+  @override
+  late final GeneratedColumn<String> genres = GeneratedColumn<String>(
+      'genres', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -83,7 +88,8 @@ class $MovieTable extends Movie with TableInfo<$MovieTable, MovieData> {
         releaseDate,
         voteAverage,
         originalLanguage,
-        adult
+        adult,
+        genres
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -164,6 +170,12 @@ class $MovieTable extends Movie with TableInfo<$MovieTable, MovieData> {
     } else if (isInserting) {
       context.missing(_adultMeta);
     }
+    if (data.containsKey('genres')) {
+      context.handle(_genresMeta,
+          genres.isAcceptableOrUnknown(data['genres']!, _genresMeta));
+    } else if (isInserting) {
+      context.missing(_genresMeta);
+    }
     return context;
   }
 
@@ -193,6 +205,8 @@ class $MovieTable extends Movie with TableInfo<$MovieTable, MovieData> {
           DriftSqlType.string, data['${effectivePrefix}original_language'])!,
       adult: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}adult'])!,
+      genres: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}genres'])!,
     );
   }
 
@@ -213,6 +227,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
   final double voteAverage;
   final String originalLanguage;
   final bool adult;
+  final String genres;
   const MovieData(
       {required this.id,
       required this.originalTitle,
@@ -223,7 +238,8 @@ class MovieData extends DataClass implements Insertable<MovieData> {
       required this.releaseDate,
       required this.voteAverage,
       required this.originalLanguage,
-      required this.adult});
+      required this.adult,
+      required this.genres});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -237,6 +253,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
     map['vote_average'] = Variable<double>(voteAverage);
     map['original_language'] = Variable<String>(originalLanguage);
     map['adult'] = Variable<bool>(adult);
+    map['genres'] = Variable<String>(genres);
     return map;
   }
 
@@ -252,6 +269,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
       voteAverage: Value(voteAverage),
       originalLanguage: Value(originalLanguage),
       adult: Value(adult),
+      genres: Value(genres),
     );
   }
 
@@ -269,6 +287,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
       voteAverage: serializer.fromJson<double>(json['voteAverage']),
       originalLanguage: serializer.fromJson<String>(json['originalLanguage']),
       adult: serializer.fromJson<bool>(json['adult']),
+      genres: serializer.fromJson<String>(json['genres']),
     );
   }
   @override
@@ -285,6 +304,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
       'voteAverage': serializer.toJson<double>(voteAverage),
       'originalLanguage': serializer.toJson<String>(originalLanguage),
       'adult': serializer.toJson<bool>(adult),
+      'genres': serializer.toJson<String>(genres),
     };
   }
 
@@ -298,7 +318,8 @@ class MovieData extends DataClass implements Insertable<MovieData> {
           DateTime? releaseDate,
           double? voteAverage,
           String? originalLanguage,
-          bool? adult}) =>
+          bool? adult,
+          String? genres}) =>
       MovieData(
         id: id ?? this.id,
         originalTitle: originalTitle ?? this.originalTitle,
@@ -310,6 +331,7 @@ class MovieData extends DataClass implements Insertable<MovieData> {
         voteAverage: voteAverage ?? this.voteAverage,
         originalLanguage: originalLanguage ?? this.originalLanguage,
         adult: adult ?? this.adult,
+        genres: genres ?? this.genres,
       );
   @override
   String toString() {
@@ -323,14 +345,25 @@ class MovieData extends DataClass implements Insertable<MovieData> {
           ..write('releaseDate: $releaseDate, ')
           ..write('voteAverage: $voteAverage, ')
           ..write('originalLanguage: $originalLanguage, ')
-          ..write('adult: $adult')
+          ..write('adult: $adult, ')
+          ..write('genres: $genres')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, originalTitle, overview, backdropPath,
-      posterPath, title, releaseDate, voteAverage, originalLanguage, adult);
+  int get hashCode => Object.hash(
+      id,
+      originalTitle,
+      overview,
+      backdropPath,
+      posterPath,
+      title,
+      releaseDate,
+      voteAverage,
+      originalLanguage,
+      adult,
+      genres);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -344,7 +377,8 @@ class MovieData extends DataClass implements Insertable<MovieData> {
           other.releaseDate == this.releaseDate &&
           other.voteAverage == this.voteAverage &&
           other.originalLanguage == this.originalLanguage &&
-          other.adult == this.adult);
+          other.adult == this.adult &&
+          other.genres == this.genres);
 }
 
 class MovieCompanion extends UpdateCompanion<MovieData> {
@@ -358,6 +392,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
   final Value<double> voteAverage;
   final Value<String> originalLanguage;
   final Value<bool> adult;
+  final Value<String> genres;
   const MovieCompanion({
     this.id = const Value.absent(),
     this.originalTitle = const Value.absent(),
@@ -369,6 +404,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
     this.voteAverage = const Value.absent(),
     this.originalLanguage = const Value.absent(),
     this.adult = const Value.absent(),
+    this.genres = const Value.absent(),
   });
   MovieCompanion.insert({
     this.id = const Value.absent(),
@@ -381,6 +417,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
     required double voteAverage,
     required String originalLanguage,
     required bool adult,
+    required String genres,
   })  : originalTitle = Value(originalTitle),
         overview = Value(overview),
         backdropPath = Value(backdropPath),
@@ -389,7 +426,8 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
         releaseDate = Value(releaseDate),
         voteAverage = Value(voteAverage),
         originalLanguage = Value(originalLanguage),
-        adult = Value(adult);
+        adult = Value(adult),
+        genres = Value(genres);
   static Insertable<MovieData> custom({
     Expression<int>? id,
     Expression<String>? originalTitle,
@@ -401,6 +439,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
     Expression<double>? voteAverage,
     Expression<String>? originalLanguage,
     Expression<bool>? adult,
+    Expression<String>? genres,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -413,6 +452,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
       if (voteAverage != null) 'vote_average': voteAverage,
       if (originalLanguage != null) 'original_language': originalLanguage,
       if (adult != null) 'adult': adult,
+      if (genres != null) 'genres': genres,
     });
   }
 
@@ -426,7 +466,8 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
       Value<DateTime>? releaseDate,
       Value<double>? voteAverage,
       Value<String>? originalLanguage,
-      Value<bool>? adult}) {
+      Value<bool>? adult,
+      Value<String>? genres}) {
     return MovieCompanion(
       id: id ?? this.id,
       originalTitle: originalTitle ?? this.originalTitle,
@@ -438,6 +479,7 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
       voteAverage: voteAverage ?? this.voteAverage,
       originalLanguage: originalLanguage ?? this.originalLanguage,
       adult: adult ?? this.adult,
+      genres: genres ?? this.genres,
     );
   }
 
@@ -474,6 +516,9 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
     if (adult.present) {
       map['adult'] = Variable<bool>(adult.value);
     }
+    if (genres.present) {
+      map['genres'] = Variable<String>(genres.value);
+    }
     return map;
   }
 
@@ -489,7 +534,8 @@ class MovieCompanion extends UpdateCompanion<MovieData> {
           ..write('releaseDate: $releaseDate, ')
           ..write('voteAverage: $voteAverage, ')
           ..write('originalLanguage: $originalLanguage, ')
-          ..write('adult: $adult')
+          ..write('adult: $adult, ')
+          ..write('genres: $genres')
           ..write(')'))
         .toString();
   }

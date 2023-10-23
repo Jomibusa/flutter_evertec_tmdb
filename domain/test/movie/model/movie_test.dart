@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:domain/movie/exception/empty_exception.dart';
 import 'package:domain/movie/model/movie.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,6 +15,7 @@ void main() {
     voteAverage: 4.5,
     originalLanguage: 'en',
     adult: true,
+    genres: "Acción, Comedia"
   );
 
   test('movie can be create successful', () {
@@ -66,7 +65,7 @@ void main() {
       );
     });
 
-    test('movie original lñanguage empty throw empty exception', () {
+    test('movie original language empty throw empty exception', () {
       //Arrange
       //Act
       //Assert

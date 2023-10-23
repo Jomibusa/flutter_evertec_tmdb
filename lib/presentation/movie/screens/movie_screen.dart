@@ -20,15 +20,14 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   void initState() {
     super.initState();
     ref.read(movieLocalProvider.notifier).loadMovie(int.parse(widget.movieID));
-    //ref.read(movieRemoteProvider.notifier).loadMovie(widget.movieID);
   }
 
   @override
   Widget build(BuildContext context) {
-    final Movie? movie = ref.watch(movieLocalProvider)[int.parse(widget.movieID)];
+    final Movie? movie =
+        ref.watch(movieLocalProvider)[int.parse(widget.movieID)];
 
     if (movie == null) {
-      
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(
@@ -69,6 +68,9 @@ class _MovieDetails extends StatelessWidget {
       children: [
         //* Titulo, OverView y Rating
         _TitleAndOverview(movie: movie, size: size, textStyles: textStyles),
+
+        //* Generos de la película
+        _Genres(movie: movie),
 
         const SizedBox(
           height: 15,
@@ -190,6 +192,38 @@ class _TitleAndOverview extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _Genres extends StatelessWidget {
+  const _Genres({
+    required this.movie,
+  });
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: SizedBox(
+        width: double.infinity,
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            ...movie.genres.split(',').map((gender) => Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: Chip(
+                    label: Text((gender != "") ? gender : 'Sin género'),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                ))
+          ],
+        ),
       ),
     );
   }

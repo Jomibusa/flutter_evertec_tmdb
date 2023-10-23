@@ -15,6 +15,7 @@ mixin MovieTranslatorDomainToInfra {
       originalLanguage: Value(movie.originalLanguage),
       adult: Value(movie.adult),
       voteAverage: Value(movie.voteAverage),
+      genres: Value(movie.genres)
     );
   }
 }

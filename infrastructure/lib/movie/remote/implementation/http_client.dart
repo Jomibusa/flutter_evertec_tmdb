@@ -11,9 +11,6 @@ class HttpClient extends ConfigNetwork {
   String get baseUrl => 'http://api.themoviedb.org/3';
   
   @override
-  String get pathMovie => "/movie";
-  
-  @override
   String get pathUpComing => "/movie/upcoming";
   
   @override

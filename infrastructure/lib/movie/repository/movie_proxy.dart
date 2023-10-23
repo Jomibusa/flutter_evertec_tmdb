@@ -24,10 +24,6 @@ class MovieProxy implements MovieRepository {
       await _localRepository.insertMovie(movie);
 
   @override
-  Future<Movie> getMovieByID(String id) async =>
-      await _remoteRepository.getMovieByID(id);
-
-  @override
   Future<Movie> getMovieFromBD(int id) async =>
       await _localRepository.getMovie(id);
 
